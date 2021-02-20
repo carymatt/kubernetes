@@ -127,6 +127,24 @@ func TestValidateStatefulSet(t *testing.T) {
 					}()},
 			},
 		},
+		{
+			ObjectMeta: metav1.ObjectMeta{Name: "abc-123", Namespace: metav1.NamespaceDefault},
+			Spec: apps.StatefulSetSpec{
+				PersistentVolumeClaimDeletePolicy: apps.Retain,
+			},
+		},
+		{
+			ObjectMeta: metav1.ObjectMeta{Name: "abc-123", Namespace: metav1.NamespaceDefault},
+			Spec: apps.StatefulSetSpec{
+				PersistentVolumeClaimDeletePolicy: apps.DeleteOnStatefulSetDeletion,
+			},
+		},
+		{
+			ObjectMeta: metav1.ObjectMeta{Name: "abc-123", Namespace: metav1.NamespaceDefault},
+			Spec: apps.StatefulSetSpec{
+				PersistentVolumeClaimDeletePolicy: apps.DeleteOnStatefulSetScaledown,
+			},
+		},
 	}
 
 	for i, successCase := range successCases {
@@ -350,6 +368,18 @@ func TestValidateStatefulSet(t *testing.T) {
 				Template:            invalidPodTemplate2.Template,
 				Replicas:            3,
 				UpdateStrategy:      apps.StatefulSetUpdateStrategy{Type: apps.RollingUpdateStatefulSetStrategyType},
+			},
+		},
+		"invalid PersistentVolumeClaimDeletePolicy": {
+			ObjectMeta: metav1.ObjectMeta{Name: "abc-123", Namespace: metav1.NamespaceDefault},
+			Spec: apps.StatefulSetSpec{
+				PersistentVolumeClaimDeletePolicy: "ThisIsNotADeletePolicy",
+			},
+		},
+		"missing PersistentVolumeClaimDeletePolicy": {
+			ObjectMeta: metav1.ObjectMeta{Name: "abc-123", Namespace: metav1.NamespaceDefault},
+			Spec: apps.StatefulSetSpec{
+				PersistentVolumeClaimDeletePolicy: "",
 			},
 		},
 	}

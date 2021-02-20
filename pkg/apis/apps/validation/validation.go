@@ -108,6 +108,14 @@ func ValidateStatefulSetSpec(spec *apps.StatefulSetSpec, fldPath *field.Path) fi
 					apps.OnDeleteStatefulSetStrategyType)))
 	}
 
+	switch spec.PersistentVolumeClaimDeletePolicy {
+	case "":
+		allErrs = append(allErrs, field.Required(fldPath.Child("persistentVolumeClaimDeletePolicy"), ""))
+	case apps.Retain, apps.DeleteOnStatefulSetDeletion, apps.DeleteOnStatefulSetScaledown:
+	default:
+		allErrs = append(allErrs, field.Invalid(fldPath.Child("persistentVolumeClaimDeletePolicy"), spec.PersistentVolumeClaimDeletePolicy, fmt.Sprintf("must be '%s', '%s' or '%s'", apps.Retain, apps.DeleteOnStatefulSetDeletion, apps.DeleteOnStatefulSetScaledown)))
+	}		
+
 	allErrs = append(allErrs, apivalidation.ValidateNonnegativeField(int64(spec.Replicas), fldPath.Child("replicas"))...)
 	if spec.Selector == nil {
 		allErrs = append(allErrs, field.Required(fldPath.Child("selector"), ""))

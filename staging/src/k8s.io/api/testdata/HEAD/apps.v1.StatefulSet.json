@@ -1572,22 +1572,23 @@
         "partition": -83826225
       }
     },
-    "revisionHistoryLimit": -1872519086
+    "revisionHistoryLimit": -1872519086,
+    "persistentVolumeClaimDeletePolicy": "Ɨ鐫?勥穌砊ʑȩ硘(ǒ[ȼ"
   },
   "status": {
-    "observedGeneration": -3866306318826551410,
-    "replicas": 1852870468,
-    "readyReplicas": -1993494670,
-    "currentReplicas": -463159422,
-    "updatedReplicas": 463674701,
+    "observedGeneration": -5294513230030077074,
+    "replicas": -1065411689,
+    "readyReplicas": -2133779288,
+    "currentReplicas": 2022299179,
+    "updatedReplicas": -1647247185,
     "currentRevision": "490",
     "updateRevision": "491",
-    "collisionCount": -1556190810,
+    "collisionCount": 1461625089,
     "conditions": [
       {
-        "type": "ȩ硘(ǒ[",
-        "status": "闬輙怀¹bCũw¼ ǫđ槴Ċį軠\u003e",
-        "lastTransitionTime": "2446-08-01T12:34:13Z",
+        "type": "¼",
+        "status": "^鼑:$Ǿ觇ƒ幦ų勏Y9",
+        "lastTransitionTime": "1994-08-11T17:15:35Z",
         "reason": "492",
         "message": "493"
       }

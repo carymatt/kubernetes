@@ -850,6 +850,7 @@ func autoConvert_apps_StatefulSetSpec_To_v1beta1_StatefulSetSpec(in *apps.Statef
 		return err
 	}
 	out.RevisionHistoryLimit = (*int32)(unsafe.Pointer(in.RevisionHistoryLimit))
+	// WARNING: in.PersistentVolumeClaimDeletePolicy requires manual conversion: does not exist in peer-type
 	return nil
 }
 

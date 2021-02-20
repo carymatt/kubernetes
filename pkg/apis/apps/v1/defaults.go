@@ -117,6 +117,10 @@ func SetDefaults_StatefulSet(obj *appsv1.StatefulSet) {
 		*obj.Spec.UpdateStrategy.RollingUpdate.Partition = 0
 	}
 
+	if obj.Spec.PersistentVolumeClaimDeletePolicy == "" {
+		obj.Spec.PersistentVolumeClaimDeletePolicy = appsv1.Retain
+	}
+
 	if obj.Spec.Replicas == nil {
 		obj.Spec.Replicas = new(int32)
 		*obj.Spec.Replicas = 1

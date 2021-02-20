@@ -663,6 +663,11 @@ message StatefulSetSpec {
   // consists of all revisions not represented by a currently applied
   // StatefulSetSpec version. The default value is 10.
   optional int32 revisionHistoryLimit = 8;
+
+  // PersistentVolumeClaimDeletePolicy indicates the PersistentVolumeClaimDeletePolicy that will
+  // determine when volumes from the VolumeClaimTemplates will be deleted when
+  // the controllering StatefulSet is deleted or scaled down.
+  optional string persistentVolumeClaimDeletePolicy = 9;
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.

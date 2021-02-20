@@ -97,6 +97,26 @@ type RollingUpdateStatefulSetStrategy struct {
 	Partition int32
 }
 
+// PersistentVolumeClaimDeletePolicyType is a string enumeration of the policies for
+// deletion of VolumeClaimTemplates when the controllering StatefulSet is deleted or
+// scaled down.
+type PersistentVolumeClaimDeletePolicyType string
+
+const (
+	// Retain is the default PersistentVolumeClaimDeletePolicy and specifies that
+	// PersistentVolumeClaims associated with StatefulSet VolumeClaimTemplates will not be
+	// deleted when the controlling StatefulSet is deleted or scaled down.
+	Retain PersistentVolumeClaimDeletePolicyType = "Retain"
+	// DeleteOnStatefulSetDeletion specifies that PersistentVolumeClaims associated with
+	// StatefulSet VolumeClaimTemplates will be deleted when controlling StatefulSet is
+	// deleted, but not when it is scaled down.
+	DeleteOnStatefulSetDeletion PersistentVolumeClaimDeletePolicyType = "DeleteOnStatefulSetDeletion"
+	// DeleteOnStatefulSetScaledown specifies that PersistentVolumeClaims associated with
+	// StatefulSet VolumeClaimTemplates will be deleted both when controlling StatefulSet is
+	// deleted and when it is scaled down.
+	DeleteOnStatefulSetScaledown PersistentVolumeClaimDeletePolicyType = "DeleteOnStatefulSetScaledown"
+)
+
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpec struct {
 	// Replicas is the desired number of replicas of the given Template.
@@ -157,6 +177,12 @@ type StatefulSetSpec struct {
 	// consists of all revisions not represented by a currently applied
 	// StatefulSetSpec version. The default value is 10.
 	RevisionHistoryLimit *int32
+
+	// PersistentVolumeClaimDeletePolicy indicates the PersistentVolumeClaimDeletePolicy that will
+	// determine when volumes from the VolumeClaimTemplates will be deleted when
+	// the controllering StatefulSet is deleted or scaled down.
+	// +optional
+	PersistentVolumeClaimDeletePolicy PersistentVolumeClaimDeletePolicyType
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
